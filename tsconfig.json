@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -16,11 +12,36 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
+    "strictNullChecks": false,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@config": ["src/config"],
+      "@config/*": ["src/config/*"],
+      "@common": ["src/common"],
+      "@common/*": ["src/common/*"],
+      "@core": ["src/core"],
+      "@core/*": ["src/core/*"],
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@hooks": ["src/hooks"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages": ["src/pages"],
+      "@pages/*": ["src/pages/*"],
+      "@router": ["src/router"],
+      "@router/*": ["src/router/*"],
+      "@store": ["src/store"],
+      "@store/*": ["src/store/*"],
+      "@model": ["src/model"],
+      "@model/*": ["src/model/*"],
+      "@service": ["src/service"],
+      "@service/*": ["src/service/*"],
+      "@app": ["src/app"],
+      "@app/*": ["src/app/*"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  "exclude": ["./craco.config.js"]
 }
