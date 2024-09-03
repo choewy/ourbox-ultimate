@@ -22,7 +22,6 @@ module.exports = {
       '@store': path.resolve(__dirname, 'src/store'),
       '@model': path.resolve(__dirname, 'src/model'),
       '@service': path.resolve(__dirname, 'src/service'),
-      '@app': path.resolve(__dirname, 'src/app'),
     },
   },
 };

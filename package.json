@@ -12,7 +12,10 @@
     "eject": "craco eject"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "@craco/craco": "^7.1.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,6 +26,7 @@
     "axios": "^1.7.7",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "framer-motion": "^11.3.31",
     "luxon": "^3.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -37,9 +37,7 @@
       "@model": ["src/model"],
       "@model/*": ["src/model/*"],
       "@service": ["src/service"],
-      "@service/*": ["src/service/*"],
-      "@app": ["src/app"],
-      "@app/*": ["src/app/*"]
+      "@service/*": ["src/service/*"]
     }
   },
   "include": ["src"],
