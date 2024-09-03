@@ -6,7 +6,7 @@ export abstract class RecoilStore<StoreValue> {
 
   constructor(
     public readonly name: string,
-    public readonly defaultValue?: StoreValue,
+    public readonly defaultValue: StoreValue,
   ) {
     this.store = atom({
       key: [name, v4()].join('_'),
