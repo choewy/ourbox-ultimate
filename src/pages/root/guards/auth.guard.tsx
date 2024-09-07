@@ -1,31 +1,10 @@
-import { authApiService } from '@apis/auth';
 import { LoginStatus, PagePath, pageService } from '@common';
-import { authStore } from '@stores';
-import { FunctionComponent, useCallback, useEffect } from 'react';
+import { authHookService } from '@services/auth';
+import { FunctionComponent } from 'react';
 import { Navigate } from 'react-router-dom';
 
 export const AuthGuard: FunctionComponent = () => {
-  const [{ loginStatus }, authDispatcher] = authStore.useState();
-
-  const checkAuth = useCallback(async () => {
-    try {
-      const auth = await authApiService.auth();
-
-      authDispatcher({
-        loginStatus: LoginStatus.Success,
-        auth,
-      });
-    } catch (e) {
-      authDispatcher({
-        loginStatus: LoginStatus.Failed,
-        auth: null,
-      });
-    }
-  }, [authDispatcher]);
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+  const loginStatus = authHookService.useCheckAuth();
 
   switch (loginStatus) {
     case LoginStatus.Success:

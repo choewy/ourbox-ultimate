@@ -30,8 +30,10 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages": ["src/pages"],
       "@pages/*": ["src/pages/*"],
-      "@apis": ["src/apis"],
-      "@apis/*": ["src/apis/*"]
+      "@models": ["src/models"],
+      "@models/*": ["src/models/*"],
+      "@services": ["src/services"],
+      "@services/*": ["src/services/*"]
     }
   },
   "include": ["src"],

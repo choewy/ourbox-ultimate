@@ -19,3 +19,8 @@ export enum InterceptorStatus {
   Passed = 1,
   Failed = 2,
 }
+
+export enum CookieName {
+  AccessToken = '___newbox_atk___',
+  RefreshToken = '___newbox_rtk___',
+}

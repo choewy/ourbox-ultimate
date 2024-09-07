@@ -1,6 +1,6 @@
-import { AuthDTO } from '@apis/auth';
 import { LoginStatus } from '@common';
 import { RecoilStore } from '@core/abstracts';
+import { AuthDTO } from '@services/auth';
 
 export type AuthStoreValue = {
   loginStatus: LoginStatus;

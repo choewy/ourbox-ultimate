@@ -18,7 +18,8 @@ module.exports = {
       '@components': path.resolve(__dirname, 'src/components'),
       '@layouts': path.resolve(__dirname, 'src/layouts'),
       '@pages': path.resolve(__dirname, 'src/pages'),
-      '@apis': path.resolve(__dirname, 'src/apis'),
+      '@models': path.resolve(__dirname, 'src/models'),
+      '@services': path.resolve(__dirname, 'src/services'),
     },
   },
 };
