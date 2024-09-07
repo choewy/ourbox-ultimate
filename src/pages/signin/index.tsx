@@ -1,50 +1,52 @@
 import { Box, Button, Checkbox, Flex, FormControl, FormLabel, Heading, Input, Stack } from '@chakra-ui/react';
 import { cookieService, PagePath } from '@common';
-import { authApiService, LoginDTO } from '@services/auth';
+import { authApiService, SignInBodyDTO } from '@services/auth';
+import { formService } from '@services/form';
 import { ChangeEventHandler, FormEventHandler, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignInPage() {
-  const [loginBody, setLoginBody] = useState<LoginDTO>({
-    email: '',
-    password: '',
-  });
+  const navigate = useNavigate();
 
-  const onChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      setLoginBody((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    },
-    [setLoginBody],
-  );
+  const [signInBody, setSignInBody] = useState<SignInBodyDTO>(new SignInBodyDTO({ email: cookieService.getLastestEmail() }));
+  const [isSaveEmail, setIsSaveEmail] = useState<boolean>(cookieService.hasLatestEmail());
 
-  const onClickSignIn: FormEventHandler<HTMLFormElement> = useCallback(
+  const onChangeSignInBody = formService.useOnChangeInput(setSignInBody);
+  const onCheckIsSaveEmail: ChangeEventHandler<HTMLInputElement> = useCallback((e) => setIsSaveEmail(e.target.checked), [setIsSaveEmail]);
+
+  const onSignIn: FormEventHandler<HTMLFormElement> = useCallback(
     async (e) => {
       e.preventDefault();
 
-      if (loginBody.email === '') {
-        return alert('이메일 입력해라');
+      const validationMessage = signInBody.validate();
+
+      if (validationMessage) {
+        return alert(validationMessage);
       }
 
-      if (loginBody.password === '') {
-        return alert('비밀번호 입력해라');
-      }
-
-      const response = await authApiService.login(loginBody);
+      const response = await authApiService.signin(signInBody);
 
       if (response.ok === false) {
-        return alert(`응답오류났다(${response.errorCode})`);
+        return alert(response.message);
       }
 
       cookieService.setAccessToken(response.data.accessToken);
       cookieService.setRefreshToken(response.data.refreshToken);
 
+      if (isSaveEmail) {
+        cookieService.setLastestEmail(signInBody.email);
+      } else {
+        cookieService.removeLastestEmail();
+      }
+
       window.location.replace(PagePath.Main);
     },
-    [loginBody],
+    [signInBody, isSaveEmail],
   );
 
-  const onClickSignUp = useCallback(async () => {
-    return;
-  }, []);
+  const onClickSignUp = useCallback(() => {
+    navigate(PagePath.SignUp);
+  }, [navigate]);
 
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'}>
@@ -53,19 +55,21 @@ export default function SignInPage() {
           <Heading fontSize={'4xl'}>로그인</Heading>
         </Stack>
         <Box rounded={'lg'} boxShadow={'lg'} p={8}>
-          <form onSubmit={onClickSignIn}>
+          <form onSubmit={onSignIn}>
             <Stack spacing={4} hideFrom={'form'}>
               <FormControl id="email">
                 <FormLabel>이메일</FormLabel>
-                <Input type="email" name="email" value={loginBody.email} onChange={onChangeInput} />
+                <Input type="text" name="email" value={signInBody.email} onChange={onChangeSignInBody} />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>비밀번호</FormLabel>
-                <Input type="password" name="password" value={loginBody.password} onChange={onChangeInput} />
+                <Input type="password" name="password" value={signInBody.password} onChange={onChangeSignInBody} />
               </FormControl>
               <Stack spacing={5}>
                 <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
-                  <Checkbox>계정 기억하기</Checkbox>
+                  <Checkbox onChange={onCheckIsSaveEmail} defaultChecked={isSaveEmail}>
+                    계정 기억하기
+                  </Checkbox>
                 </Stack>
                 <Button type="submit">로그인</Button>
                 <Button type="button" onClick={onClickSignUp}>

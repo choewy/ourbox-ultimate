@@ -1,4 +1,4 @@
-import { LoginStatus, PagePath, pageService } from '@common';
+import { LoginStatus } from '@common';
 import { authStore } from '@stores';
 import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -20,10 +20,6 @@ export class AuthHookService {
     }, [pathname, authDispatcher]);
 
     useEffect(() => {
-      if (pageService.isIn([PagePath.Home])) {
-        return;
-      }
-
       checkAuth();
     }, [pathname, checkAuth]);
 

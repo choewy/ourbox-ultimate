@@ -9,18 +9,13 @@ export enum PagePath {
 }
 
 export enum LoginStatus {
-  Check = 0,
+  Wait = 0,
   Success = 1,
   Failed = 2,
 }
 
-export enum InterceptorStatus {
-  Checking = 0,
-  Passed = 1,
-  Failed = 2,
-}
-
 export enum CookieName {
-  AccessToken = '___newbox_atk___',
-  RefreshToken = '___newbox_rtk___',
+  LastestEmail = '___newbody_lastest_email__',
+  AccessToken = '___newbox_access_token___',
+  RefreshToken = '___newbox_refresh_token___',
 }

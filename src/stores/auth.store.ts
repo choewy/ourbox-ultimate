@@ -1,10 +1,10 @@
 import { LoginStatus } from '@common';
 import { RecoilStore } from '@core/abstracts';
-import { AuthDTO } from '@services/auth';
+import { AuthResponseDTO } from '@services/auth';
 
 export type AuthStoreValue = {
   loginStatus: LoginStatus;
-  auth: AuthDTO | null;
+  auth: AuthResponseDTO | null;
 };
 
 export class AuthStore extends RecoilStore<AuthStoreValue> {
@@ -13,4 +13,4 @@ export class AuthStore extends RecoilStore<AuthStoreValue> {
   }
 }
 
-export const authStore = new AuthStore('auth', { loginStatus: LoginStatus.Check, auth: null });
+export const authStore = new AuthStore('auth', { loginStatus: LoginStatus.Wait, auth: null });

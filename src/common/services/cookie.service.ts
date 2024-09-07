@@ -3,6 +3,22 @@ import Cookies from 'universal-cookie';
 import { CookieName } from '../enums';
 
 export class CookieService extends Cookies {
+  public setLastestEmail(email: string) {
+    this.set(CookieName.LastestEmail, email);
+  }
+
+  public getLastestEmail() {
+    return this.get(CookieName.LastestEmail) ?? '';
+  }
+
+  public hasLatestEmail() {
+    return !!this.get(CookieName.LastestEmail);
+  }
+
+  public removeLastestEmail() {
+    this.remove(CookieName.LastestEmail);
+  }
+
   public setAccessToken(accessToken: string) {
     this.set(CookieName.AccessToken, accessToken);
   }

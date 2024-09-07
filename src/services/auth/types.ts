@@ -1,16 +1,11 @@
-export type AuthDTO = {
+export type AuthResponseDTO = {
   name: string;
   email: string;
   partner: string | null;
   center: string | null;
 };
 
-export type LoginDTO = {
-  email: string;
-  password: string;
-};
-
-export type AuthTokenDTO = {
+export type AuthTokenResponseDTO = {
   accessToken: string;
   refreshToken: string;
 };
