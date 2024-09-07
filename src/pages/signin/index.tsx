@@ -1,5 +1,6 @@
 import { Box, Button, Checkbox, Flex, FormControl, FormLabel, Heading, Input, Stack } from '@chakra-ui/react';
 import { cookieService, PagePath } from '@common';
+import { ToastEvent } from '@layouts/toast';
 import { authApiService, SignInBodyDTO } from '@services/auth';
 import { formService } from '@services/form';
 import { ChangeEventHandler, FormEventHandler, useCallback, useState } from 'react';
@@ -21,13 +22,13 @@ export default function SignInPage() {
       const validationMessage = signInBody.validate();
 
       if (validationMessage) {
-        return alert(validationMessage);
+        return ToastEvent.warn('로그인 실패', validationMessage);
       }
 
       const response = await authApiService.signin(signInBody);
 
       if (response.ok === false) {
-        return alert(response.message);
+        return ToastEvent.warn('로그인 실패', response.message);
       }
 
       cookieService.setAccessToken(response.data.accessToken);
