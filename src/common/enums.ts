@@ -2,7 +2,9 @@ export enum PagePath {
   Root = '/',
   Home = '/home',
   Main = '/main',
-  Login = '/login',
+  SignIn = '/signin',
+  SignUp = '/signup',
+  SignOut = '/signout',
   NotFound = '*',
 }
 

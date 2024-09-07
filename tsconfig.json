@@ -22,10 +22,14 @@
       "@common/*": ["src/common/*"],
       "@core": ["src/core"],
       "@core/*": ["src/core/*"],
+      "@stores": ["src/stores"],
+      "@stores/*": ["src/stores/*"],
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@layouts": ["src/layouts"],
+      "@layouts/*": ["src/layouts/*"],
       "@pages": ["src/pages"],
       "@pages/*": ["src/pages/*"],
-      "@interceptors": ["src/interceptors"],
-      "@interceptors/*": ["src/interceptors/*"],
       "@apis": ["src/apis"],
       "@apis/*": ["src/apis/*"]
     }

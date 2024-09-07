@@ -12,6 +12,7 @@
     "eject": "craco eject"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.13.3",
