@@ -10,7 +10,7 @@ import { PagePath, pageService } from '@/common';
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
-  if (pageService.isIn([PagePath.SignIn, PagePath.SignUp]) === true) {
+  if (pageService.isIn([PagePath.Login, PagePath.SignUp]) === true) {
     return <></>;
   }
 

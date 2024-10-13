@@ -38,7 +38,7 @@ export default function SignUpPage() {
   );
 
   const onClickSignIn = useCallback(() => {
-    navigate(PagePath.SignIn);
+    navigate(PagePath.Login);
   }, [navigate]);
 
   return (

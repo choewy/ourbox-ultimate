@@ -9,14 +9,14 @@ export const AuthGuard: FunctionComponent = () => {
 
   switch (loginStatus) {
     case LoginStatus.Success:
-      if (pageService.isIn([PagePath.SignIn, PagePath.SignUp]) === true) {
+      if (pageService.isIn([PagePath.Login, PagePath.SignUp]) === true) {
         return <Navigate to={PagePath.Main} replace={true} />;
       } else {
         return <></>;
       }
 
     case LoginStatus.Failed:
-      if (pageService.isIn([PagePath.Home, PagePath.SignIn, PagePath.SignUp]) === false) {
+      if (pageService.isIn([PagePath.Home, PagePath.Login, PagePath.SignUp]) === false) {
         return <Navigate to={PagePath.Home} replace={true} />;
       } else {
         return <></>;

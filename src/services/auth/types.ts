@@ -1,8 +1,23 @@
+export type AuthResponseContextDTO = {
+  id: number;
+  name: string;
+};
+
+export type AuthResponseRoleDTO = {
+  id: number;
+  name: string;
+  permissionTargets: string[];
+};
+
 export type AuthResponseDTO = {
+  id: number;
   name: string;
   email: string;
-  partner: string | null;
-  center: string | null;
+  roles: AuthResponseRoleDTO[];
+  partnerGroup: AuthResponseContextDTO | null;
+  partner: AuthResponseContextDTO | null;
+  fulfillmentGroup: AuthResponseContextDTO | null;
+  fulfillment: AuthResponseContextDTO | null;
 };
 
 export type AuthTokenResponseDTO = {

@@ -1,10 +1,10 @@
 import { isEmail } from 'class-validator';
 
-export class SignInBodyDTO {
+export class LoginInBodyDTO {
   email: string;
   password: string;
 
-  constructor(prev?: Partial<SignInBodyDTO>) {
+  constructor(prev?: Partial<LoginInBodyDTO>) {
     this.email = prev?.email ?? '';
     this.password = prev?.password ?? '';
   }

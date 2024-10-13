@@ -4,29 +4,29 @@ import { useNavigate } from 'react-router-dom';
 
 import { cookieService, PagePath } from '@/common';
 import { ToastEvent } from '@/layouts/toast';
-import { authApiService, SignInBodyDTO } from '@/services/auth';
+import { authApiService, LoginInBodyDTO } from '@/services/auth';
 import { formService } from '@/services/form';
 
-export default function SignInPage() {
+export default function LoginInPage() {
   const navigate = useNavigate();
 
-  const [signInBody, setSignInBody] = useState<SignInBodyDTO>(new SignInBodyDTO({ email: cookieService.getLastestEmail() }));
+  const [loginBody, setLoginBody] = useState<LoginInBodyDTO>(new LoginInBodyDTO({ email: cookieService.getLastestEmail() }));
   const [isSaveEmail, setIsSaveEmail] = useState<boolean>(cookieService.hasLatestEmail());
 
-  const onChangeSignInBody = formService.useOnChangeInput(setSignInBody);
+  const onChangeLoginBody = formService.useOnChangeInput(setLoginBody);
   const onCheckIsSaveEmail: ChangeEventHandler<HTMLInputElement> = useCallback((e) => setIsSaveEmail(e.target.checked), [setIsSaveEmail]);
 
-  const onSignIn: FormEventHandler<HTMLFormElement> = useCallback(
+  const onLogin: FormEventHandler<HTMLFormElement> = useCallback(
     async (e) => {
       e.preventDefault();
 
-      const validationMessage = signInBody.validate();
+      const validationMessage = loginBody.validate();
 
       if (validationMessage) {
         return ToastEvent.warn('로그인 실패', validationMessage);
       }
 
-      const response = await authApiService.signin(signInBody);
+      const response = await authApiService.login(loginBody);
 
       if (response.ok === false) {
         return ToastEvent.warn('로그인 실패', response.message);
@@ -36,14 +36,14 @@ export default function SignInPage() {
       cookieService.setRefreshToken(response.data.refreshToken);
 
       if (isSaveEmail) {
-        cookieService.setLastestEmail(signInBody.email);
+        cookieService.setLastestEmail(loginBody.email);
       } else {
         cookieService.removeLastestEmail();
       }
 
       window.location.replace(PagePath.Main);
     },
-    [signInBody, isSaveEmail],
+    [loginBody, isSaveEmail],
   );
 
   const onClickSignUp = useCallback(() => {
@@ -57,15 +57,15 @@ export default function SignInPage() {
           <Heading fontSize={'4xl'}>로그인</Heading>
         </Stack>
         <Box rounded={'lg'} boxShadow={'lg'} p={8}>
-          <form onSubmit={onSignIn}>
+          <form onSubmit={onLogin}>
             <Stack spacing={4} hideFrom={'form'}>
               <FormControl id="email">
                 <FormLabel>이메일</FormLabel>
-                <Input type="text" name="email" value={signInBody.email} onChange={onChangeSignInBody} />
+                <Input type="text" name="email" value={loginBody.email} onChange={onChangeLoginBody} />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>비밀번호</FormLabel>
-                <Input type="password" name="password" value={signInBody.password} onChange={onChangeSignInBody} />
+                <Input type="password" name="password" value={loginBody.password} onChange={onChangeLoginBody} />
               </FormControl>
               <Stack spacing={5}>
                 <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>

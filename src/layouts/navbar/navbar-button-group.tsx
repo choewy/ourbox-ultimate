@@ -32,7 +32,7 @@ export const NavbarButtonGroup = () => {
           display={{ base: 'none', md: 'inline-flex' }}
           fontSize={'sm'}
           fontWeight={600}
-          href={PagePath.SignIn}
+          href={PagePath.Login}
         >
           로그인
         </Button>,
