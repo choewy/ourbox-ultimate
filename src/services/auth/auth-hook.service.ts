@@ -1,9 +1,10 @@
-import { LoginStatus } from '@common';
-import { authStore } from '@stores';
 import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { authApiService } from './auth-api.service';
+
+import { LoginStatus } from '@/common';
+import { authStore } from '@/stores';
 
 export class AuthHookService {
   public useCheckAuth() {

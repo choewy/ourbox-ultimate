@@ -1,6 +1,6 @@
 export class Configs {
-  public get newboxApiUrl() {
-    return process.env.REACT_APP_NEWBOX_API_URL;
+  public get apiUrl() {
+    return process.env.REACT_APP_API_URL;
   }
 }
 

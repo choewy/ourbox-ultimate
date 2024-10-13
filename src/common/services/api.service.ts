@@ -3,7 +3,7 @@ import axios from 'axios';
 import { configs } from '../configs';
 import { cookieService } from './cookie.service';
 
-export const apiService = axios.create({ baseURL: configs.newboxApiUrl });
+export const apiService = axios.create({ baseURL: configs.apiUrl });
 
 apiService.interceptors.request.use((config) => {
   const accessToken = cookieService.getAccessToken();

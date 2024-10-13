@@ -1,5 +1,6 @@
-import { cookieService, PagePath } from '@common';
 import { useEffect } from 'react';
+
+import { cookieService, PagePath } from '@/common';
 
 export default function SignOutPage() {
   useEffect(() => {

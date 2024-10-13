@@ -12,14 +12,7 @@ module.exports = {
       return config;
     },
     alias: {
-      '@common': path.resolve(__dirname, 'src/common'),
-      '@core': path.resolve(__dirname, 'src/core'),
-      '@stores': path.resolve(__dirname, 'src/stores'),
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@layouts': path.resolve(__dirname, 'src/layouts'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
-      '@models': path.resolve(__dirname, 'src/models'),
-      '@services': path.resolve(__dirname, 'src/services'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 };

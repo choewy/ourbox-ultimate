@@ -1,7 +1,8 @@
-import { LoginStatus, PagePath, pageService } from '@common';
-import { authHookService } from '@services/auth';
 import { FunctionComponent } from 'react';
 import { Navigate } from 'react-router-dom';
+
+import { LoginStatus, PagePath, pageService } from '@/common';
+import { authHookService } from '@/services/auth';
 
 export const AuthGuard: FunctionComponent = () => {
   const loginStatus = authHookService.useCheckAuth();

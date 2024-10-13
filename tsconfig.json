@@ -18,22 +18,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@common": ["src/common"],
-      "@common/*": ["src/common/*"],
-      "@core": ["src/core"],
-      "@core/*": ["src/core/*"],
-      "@stores": ["src/stores"],
-      "@stores/*": ["src/stores/*"],
-      "@components": ["src/components"],
-      "@components/*": ["src/components/*"],
-      "@layouts": ["src/layouts"],
-      "@layouts/*": ["src/layouts/*"],
-      "@pages": ["src/pages"],
-      "@pages/*": ["src/pages/*"],
-      "@models": ["src/models"],
-      "@models/*": ["src/models/*"],
-      "@services": ["src/services"],
-      "@services/*": ["src/services/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src"],

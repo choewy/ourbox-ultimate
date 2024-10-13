@@ -1,9 +1,10 @@
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Stack } from '@chakra-ui/react';
-import { cookieService, PagePath } from '@common';
-import { authApiService, SignUpBodyDTO } from '@services/auth';
-import { formService } from '@services/form';
 import { FormEventHandler, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { cookieService, PagePath } from '@/common';
+import { authApiService, SignUpBodyDTO } from '@/services/auth';
+import { formService } from '@/services/form';
 
 export default function SignUpPage() {
   const navigate = useNavigate();

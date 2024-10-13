@@ -1,6 +1,6 @@
-import { PagePath } from '@common';
-
 import { NavbarItem } from './navbar-item';
+
+import { PagePath } from '@/common';
 
 export const NAVBAR_ITEMS: NavbarItem[] = [
   {

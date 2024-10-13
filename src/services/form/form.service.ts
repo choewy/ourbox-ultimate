@@ -1,5 +1,6 @@
-import { DTOConstructorType } from '@common';
 import { ChangeEvent, Dispatch, SetStateAction, useCallback } from 'react';
+
+import { DTOConstructorType } from '@/common';
 
 export class FormService {
   public useOnChangeInput<DTO>(dispatch: Dispatch<SetStateAction<DTO>>) {

@@ -1,7 +1,8 @@
 import { Button, Stack } from '@chakra-ui/react';
-import { LoginStatus, PagePath } from '@common';
-import { authStore } from '@stores';
 import { ReactElement } from 'react';
+
+import { LoginStatus, PagePath } from '@/common';
+import { authStore } from '@/stores';
 
 export const NavbarButtonGroup = () => {
   const loginStatus = authStore.useLoginStatus();

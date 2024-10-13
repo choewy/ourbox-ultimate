@@ -1,6 +1,6 @@
-import { LoginStatus } from '@common';
-import { RecoilStore } from '@core/abstracts';
-import { AuthResponseDTO } from '@services/auth';
+import { LoginStatus } from '@/common';
+import { RecoilStore } from '@/core/abstracts';
+import { AuthResponseDTO } from '@/services/auth';
 
 export type AuthStoreValue = {
   loginStatus: LoginStatus;

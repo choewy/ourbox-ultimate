@@ -1,8 +1,8 @@
-import { apiService, lastValueFrom } from '@common';
-
 import { SignInBodyDTO, SignUpBodyDTO } from './dtos';
 import { AuthApiErrorCode } from './enums';
 import { AuthResponseDTO, AuthTokenResponseDTO } from './types';
+
+import { apiService, lastValueFrom } from '@/common';
 
 export class AuthApiService {
   public getExceptionMessage(errorCode: string) {

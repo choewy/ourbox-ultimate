@@ -1,4 +1,4 @@
-import { PagePath } from '@common/enums';
+import { PagePath } from '@/common/enums';
 
 export class PageService {
   public is(pagePath: PagePath, pathname = location.pathname) {

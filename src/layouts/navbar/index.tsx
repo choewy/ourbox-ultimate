@@ -1,10 +1,11 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Collapse, Flex, IconButton, Text, useBreakpointValue, useDisclosure } from '@chakra-ui/react';
-import { PagePath, pageService } from '@common';
 
 import { NavbarButtonGroup } from './navbar-button-group';
 import { NavbarDesktop } from './navbar-desktop';
 import { NavbarMobile } from './navbar-mobile';
+
+import { PagePath, pageService } from '@/common';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
