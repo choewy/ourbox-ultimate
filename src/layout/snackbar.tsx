@@ -1,6 +1,6 @@
 import { SnackbarProvider } from 'notistack';
 
-import { useSnackbarEventConsumer, useSnackbarEventListener } from './hook';
+import { useSnackbarEventConsumer, useSnackbarEventListener } from '@/hook/snackbar';
 
 const SnackbarComponent = () => {
   useSnackbarEventListener();

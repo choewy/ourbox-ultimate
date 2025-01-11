@@ -3,7 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { useAppVersion } from './hook/app';
-import { Snackbar } from './layout/snackbar/snackbar';
+import { Snackbar } from './layout/snackbar';
 import HomePage from './page/home';
 import LoginPage from './page/login';
 import LogoutPage from './page/logout';
