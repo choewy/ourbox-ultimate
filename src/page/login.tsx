@@ -3,6 +3,7 @@ import { isEmail, isEmpty } from 'class-validator';
 import { ChangeEvent, FormEvent, MouseEvent, useCallback, useState } from 'react';
 
 import { ultimateAuthApi } from '@/api/ultimate/auth';
+import { SnackbarEvent } from '@/layout/snackbar/event';
 import { setTokens } from '@/persistence/cookie';
 import { PagePath } from '@/persistence/enums';
 
@@ -30,21 +31,27 @@ export default function LoginPage() {
       const password = requestBody.password;
 
       if (isEmpty(email)) {
-        return alert('이메일을 입력하세요.');
+        return SnackbarEvent.warning('이메일을 입력하세요.');
       }
 
       if (isEmpty(password)) {
-        return alert('비밀번호를 입력하세요.');
+        return SnackbarEvent.warning('비밀번호를 입력하세요.');
       }
 
       if (!isEmail(email)) {
-        return alert('이메일 형식이 아닙니다.');
+        return SnackbarEvent.warning('이메일 형식이 아닙니다.');
       }
 
       const response = await ultimateAuthApi.login({ email: requestBody.email, password: requestBody.password });
 
       if (response.error) {
-        return alert(response.error);
+        if (response.error.errorMessage) {
+          return SnackbarEvent.warning(response.error.errorMessage);
+        }
+
+        if (response.error.exceptionMessage) {
+          return SnackbarEvent.warning(response.error.exceptionMessage);
+        }
       }
 
       setTokens(response.data.accessToken, response.data.refreshToken);

@@ -23,9 +23,12 @@ ultimateAxios.interceptors.request.use((config) => {
   return config;
 });
 
-export const ultimateAxiosErrorHandler: AxiosErrorHandler<string> = (e) => {
+export const ultimateAxiosErrorHandler: AxiosErrorHandler<{
+  errorMessage?: string;
+  exceptionMessage?: string;
+}> = (e) => {
   if (e?.response?.data == null) {
-    return e.message;
+    return { errorMessage: e.message };
   }
 
   const data = e.response.data as {
@@ -37,57 +40,57 @@ export const ultimateAxiosErrorHandler: AxiosErrorHandler<string> = (e) => {
     data.errorCode = ApiErrorCode.UnknownError;
   }
 
-  let message = e.message;
+  let exceptionMessage = e.message;
 
   switch (data.errorCode) {
     case ApiErrorCode.UnknownError:
     case ApiErrorCode.SystemError:
-      message = `시스템 오류가 발생하였습니다(code : ${data.errorCode}).`;
+      exceptionMessage = `시스템 오류가 발생하였습니다(code : ${data.errorCode}).`;
       break;
 
     case ApiErrorCode.ValidationError:
-      message = `요청 값 형식이 잘못되었습니다.`;
+      exceptionMessage = `요청 값 형식이 잘못되었습니다.`;
       break;
 
     case ApiErrorCode.LoginRequired:
-      message = `로그인이 필요한 요청입니다.`;
+      exceptionMessage = `로그인이 필요한 요청입니다.`;
       break;
 
     case ApiErrorCode.InvalidToken:
-      message = `사용자 인증을 실패하였습니다.`;
+      exceptionMessage = `사용자 인증을 실패하였습니다.`;
       break;
 
     case ApiErrorCode.WrongEmailOrPassword:
-      message = `이메일이 존재하지 않거나 비밀번호가 일치하지 않습니다.`;
+      exceptionMessage = `이메일이 존재하지 않거나 비밀번호가 일치하지 않습니다.`;
       break;
 
     case ApiErrorCode.InActivatedAccount:
-      message = `이용 가능한 계정이 아닙니다.`;
+      exceptionMessage = `이용 가능한 계정이 아닙니다.`;
       break;
 
     case ApiErrorCode.AccessDenined:
     case ApiErrorCode.CannotUseResource:
-      message = `접근 권한이 없습니다.`;
+      exceptionMessage = `접근 권한이 없습니다.`;
       break;
 
     case ApiErrorCode.AlreadyExistUserEmail:
-      message = `이미 등록된 이메일 주소입니다.`;
+      exceptionMessage = `이미 등록된 이메일 주소입니다.`;
       break;
 
     case ApiErrorCode.NotFoundUser:
-      message = `사용자 정보를 찾을 수 없습니다.`;
+      exceptionMessage = `사용자 정보를 찾을 수 없습니다.`;
       break;
 
     case ApiErrorCode.NotFoundPartner:
-      message = `고객사 정보를 찾을 수 없습니다.`;
+      exceptionMessage = `고객사 정보를 찾을 수 없습니다.`;
       break;
 
     case ApiErrorCode.NotFoundPartnerChannel:
-      message = `고객사 판매 채널 정보를 찾을 수 없습니다.`;
+      exceptionMessage = `고객사 판매 채널 정보를 찾을 수 없습니다.`;
       break;
   }
 
-  return message;
+  return { exceptionMessage };
 };
 
 export const ultimateAxiosTransform = new AxiosTransform(ultimateAxiosErrorHandler);
