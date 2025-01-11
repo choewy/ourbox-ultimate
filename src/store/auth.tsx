@@ -1,6 +1,8 @@
 import { atom } from 'recoil';
 
-export const authStore = atom({
+export type AuthStoreType = object;
+
+export const authStore = atom<AuthStoreType>({
   key: 'authStore',
   default: {},
 });

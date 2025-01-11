@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-import { SnackbarProps } from './store';
+import { SnackbarProps } from '../types';
 
 export class SnackbarEvent extends CustomEvent<SnackbarProps> {
   constructor(detail: SnackbarProps) {

@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 import { AxiosTransform } from '@/persistence/axios';
+import { ULTIMATE_API_URL } from '@/persistence/config';
 import { getTokens } from '@/persistence/cookie';
 import { ApiErrorCode, RequestHeader } from '@/persistence/enums';
 import { AxiosErrorHandler } from '@/persistence/types';
 
 export const ultimateAxios = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: ULTIMATE_API_URL,
 });
 
 ultimateAxios.interceptors.request.use((config) => {

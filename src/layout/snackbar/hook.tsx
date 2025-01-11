@@ -2,8 +2,9 @@ import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { SnackbarEvent } from './event';
-import { SnackbarProps, snackbarStore } from './store';
+import { SnackbarEvent } from '@/persistence/event';
+import { SnackbarProps } from '@/persistence/types';
+import { snackbarStore } from '@/store/snackbar';
 
 export const useEnqueueSnackbarEvent = () => {
   const setState = useSetRecoilState(snackbarStore);

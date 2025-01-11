@@ -3,9 +3,9 @@ import { isEmail, isEmpty } from 'class-validator';
 import { ChangeEvent, FormEvent, MouseEvent, useCallback, useState } from 'react';
 
 import { ultimateAuthApi } from '@/api/ultimate/auth';
-import { SnackbarEvent } from '@/layout/snackbar/event';
 import { setTokens } from '@/persistence/cookie';
 import { PagePath } from '@/persistence/enums';
+import { SnackbarEvent } from '@/persistence/event';
 
 export default function LoginPage() {
   const [requestBody, setRequestBody] = useState({
@@ -44,14 +44,12 @@ export default function LoginPage() {
 
       const response = await ultimateAuthApi.login({ email: requestBody.email, password: requestBody.password });
 
-      if (response.error) {
-        if (response.error.errorMessage) {
-          return SnackbarEvent.warning(response.error.errorMessage);
-        }
+      if (response.error?.errorMessage) {
+        return SnackbarEvent.warning(response.error.errorMessage);
+      }
 
-        if (response.error.exceptionMessage) {
-          return SnackbarEvent.warning(response.error.exceptionMessage);
-        }
+      if (response.error?.exceptionMessage) {
+        return SnackbarEvent.warning(response.error.exceptionMessage);
       }
 
       setTokens(response.data.accessToken, response.data.refreshToken);

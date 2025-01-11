@@ -1,6 +1,13 @@
 import { AxiosError } from 'axios';
+import { VariantType } from 'notistack';
 
 import { LoginOtherType, UserType } from './enums';
+
+export type SnackbarProps = {
+  id?: string;
+  variant: VariantType;
+  message: string;
+};
 
 export type AxiosValueFromReturnType<T, E = unknown> = {
   ok: boolean;
