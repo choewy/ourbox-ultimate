@@ -1,15 +1,5 @@
 import { ChevronLeft, ChevronRight, Email, Inbox, Menu } from '@mui/icons-material';
-import {
-  AppBar as MuiAppBar,
-  AppBarProps as MuiAppBarProps,
-  Drawer as MuiDrawer,
-  Box,
-  CssBaseline,
-  IconButton,
-  Divider,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar as MuiAppBar, AppBarProps as MuiAppBarProps, Drawer as MuiDrawer, Box, IconButton, Divider, Toolbar, Typography } from '@mui/material';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -107,7 +97,6 @@ export default function Layout() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={[{ marginRight: 5 }, open && { display: 'none' }]}>
@@ -134,7 +123,7 @@ export default function Layout() {
           menuProps={{
             title: '1',
             Icon: <Email />,
-            menuItems: [{ text: 'Hello', Icon: <Inbox />, to: '/' }],
+            menuItems: [{ text: 'Hello', Icon: <Inbox />, to: '/temp' }],
           }}
           divider
         />
@@ -150,7 +139,6 @@ export default function Layout() {
         />
       </Drawer>
 
-      {/* TODO 메인 컨테이너 */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Outlet />
