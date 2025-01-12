@@ -50,31 +50,31 @@ export abstract class AxiosApi<ErrorType = any, ExceptionType = any> {
       }));
   }
 
-  async options<T = any>(url: string, config?: AxiosRequestConfig) {
+  async options<T = any>(url?: string, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.options(url, config));
   }
 
-  async head<T = any>(url: string, config?: AxiosRequestConfig) {
+  async head<T = any>(url?: string, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.head(url, config));
   }
 
-  async get<T = any>(url: string, config?: AxiosRequestConfig) {
+  async get<T = any>(url?: string, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.get(url, config));
   }
 
-  async post<T = any, D = any>(url: string, body?: D, config?: AxiosRequestConfig) {
+  async post<T = any, D = any>(url?: string, body?: D, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.post(url, body, config));
   }
 
-  async patch<T = any, D = any>(url: string, body?: D, config?: AxiosRequestConfig) {
+  async patch<T = any, D = any>(url?: string, body?: D, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.patch(url, body, config));
   }
 
-  async put<T = any, D = any>(url: string, body?: D, config?: AxiosRequestConfig) {
+  async put<T = any, D = any>(url?: string, body?: D, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.put(url, body, config));
   }
 
-  async delete<T = any>(url: string, config?: AxiosRequestConfig) {
+  async delete<T = any>(url?: string, config?: AxiosRequestConfig) {
     return this.valueOf<T>(this.instance.delete(url, config));
   }
 }

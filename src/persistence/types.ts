@@ -25,6 +25,13 @@ export type SideMenuItemProps = {
   options?: NavigateOptions;
 };
 
+export type ListType<T> = {
+  count: number;
+  skip: number;
+  take: number;
+  rows: T[];
+};
+
 export type AxiosValueFromReturnType<T, E = unknown> = {
   ok: boolean;
   data?: T;
