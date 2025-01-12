@@ -1,19 +1,18 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
 import { PagePath } from '@/persistence/enums';
 import { SnackbarEvent } from '@/persistence/event';
-import { authStore } from '@/store/auth';
+import { authStore } from '@/store/';
 
 export const AuthGuard = () => {
   const pathname = useLocation().pathname;
   const navigate = useNavigate();
 
-  const state = useRecoilValue(authStore);
+  const authStoreValue = authStore.useValue();
 
   useEffect(() => {
-    switch (state.ok) {
+    switch (authStoreValue.ok) {
       case true:
         if ([String(PagePath.Login)].includes(pathname)) {
           return navigate(PagePath.Home, { replace: true });
@@ -36,9 +35,9 @@ export const AuthGuard = () => {
 
         return;
     }
-  }, [state.ok, pathname]);
+  }, [authStoreValue.ok, pathname]);
 
-  if (state.ok === null) {
+  if (authStoreValue.ok === null) {
     return <></>;
   }
 
