@@ -7,36 +7,34 @@ export type AxiosResponseType<T, ErrorType = any, ExceptionType = any> = {
   exception: ExceptionType | null;
 };
 
-export abstract class AxiosService {
+export abstract class AxiosApi<ErrorType = any, ExceptionType = any> {
   constructor(private readonly instance: Axios) {}
 
-  private _handleError<E = any>(e: AxiosError) {
+  private _handleError(e: AxiosError) {
     if (e.response?.status == null || e.response.status < 200 || e.response.status >= 500) {
-      return this.handleError<E>(e);
+      return this.handleError(e);
     }
 
     return null;
   }
 
-  private _handleException<E = any>(e: AxiosError) {
+  private _handleException(e: AxiosError) {
     if (e.response?.status && e.response.status > 300 && e.response.status < 500) {
-      return this.handleException<E>(e);
+      return this.handleException(e);
     }
 
     return null;
   }
 
-  protected handleError<E = any>(e: AxiosError) {
-    return (e.response?.data ?? e) as E;
+  protected handleError(e: AxiosError): ErrorType {
+    return (e.response?.data ?? e) as ErrorType;
   }
 
-  protected handleException<E = any>(e: AxiosError) {
-    return e.response?.data as E;
+  protected handleException(e: AxiosError): ExceptionType {
+    return e.response?.data as ExceptionType;
   }
 
-  private async valueOf<T, ErrorType = any, ExceptionType = any>(
-    promiseResponse: Promise<AxiosResponse>,
-  ): Promise<AxiosResponseType<T, ErrorType, ExceptionType>> {
+  private async valueOf<T>(promiseResponse: Promise<AxiosResponse>): Promise<AxiosResponseType<T, ErrorType, ExceptionType>> {
     return promiseResponse
       .then((res) => ({
         ok: true,
@@ -47,8 +45,8 @@ export abstract class AxiosService {
       .catch((e) => ({
         ok: false,
         data: null,
-        error: this._handleError<ErrorType>(e),
-        exception: this._handleException<ExceptionType>(e),
+        error: this._handleError(e),
+        exception: this._handleException(e),
       }));
   }
 

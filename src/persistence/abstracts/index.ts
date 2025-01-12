@@ -1,2 +1,2 @@
 export * from './recoil.store';
-export * from './axios.service';
+export * from './axios.api';

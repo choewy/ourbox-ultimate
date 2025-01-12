@@ -1,26 +1,35 @@
 import { useCallback, useEffect } from 'react';
 
-import { ultimateAuthApi } from '@/api/ultimate/auth';
-import { getTokens, removeTokens } from '@/persistence/cookie';
+import { ultimateApi } from '@/api';
+import { SnackEvent } from '@/persistence/event';
+import { cookieService } from '@/service';
 import { authStore } from '@/store';
 
 class AuthHook {
   public useAuth() {
-    const tokens = getTokens();
+    const jwt = cookieService.getJwt();
     const setAuthStore = authStore.useSetState();
 
     const getAuth = useCallback(async () => {
-      if (!tokens.accessToken || !tokens.refreshToken) {
+      if (!jwt.accessToken || !jwt.refreshToken) {
         return setAuthStore({ ok: false, current: null, origin: null });
       }
 
-      const response = await ultimateAuthApi.auth();
+      const response = await ultimateApi.auth();
 
-      if (!response.ok) {
-        return setAuthStore({ ok: false, current: null, origin: null });
+      if (response.ok) {
+        return setAuthStore({ ok: true, current: response.data?.user, origin: response.data?.origin });
       }
 
-      setAuthStore({ ok: true, current: response.data?.user, origin: response.data?.origin });
+      if (response.error) {
+        SnackEvent.warning(response.error);
+      }
+
+      if (response.exception) {
+        SnackEvent.warning(response.exception);
+      }
+
+      return setAuthStore({ ok: false, current: null, origin: null });
     }, []);
 
     useEffect(() => {
@@ -29,7 +38,7 @@ class AuthHook {
   }
 
   public useLogout() {
-    removeTokens();
+    cookieService.removeJwt();
 
     const setAuthStore = authStore.useSetState();
 

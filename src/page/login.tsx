@@ -2,10 +2,10 @@ import { Box, Button, FormControl, TextField } from '@mui/material';
 import { isEmail, isEmpty } from 'class-validator';
 import { ChangeEvent, FormEvent, MouseEvent, useCallback, useState } from 'react';
 
-import { ultimateAuthApi } from '@/api/ultimate/auth';
-import { setTokens } from '@/persistence/cookie';
+import { ultimateApi } from '@/api';
 import { PagePath } from '@/persistence/enums';
-import { SnackbarEvent } from '@/persistence/event';
+import { SnackEvent } from '@/persistence/event';
+import { cookieService } from '@/service';
 
 export default function LoginPage() {
   const [requestBody, setRequestBody] = useState({
@@ -31,28 +31,28 @@ export default function LoginPage() {
       const password = requestBody.password;
 
       if (isEmpty(email)) {
-        return SnackbarEvent.warning('이메일을 입력하세요.');
+        return SnackEvent.warning('이메일을 입력하세요.');
       }
 
       if (isEmpty(password)) {
-        return SnackbarEvent.warning('비밀번호를 입력하세요.');
+        return SnackEvent.warning('비밀번호를 입력하세요.');
       }
 
       if (!isEmail(email)) {
-        return SnackbarEvent.warning('이메일 형식이 아닙니다.');
+        return SnackEvent.warning('이메일 형식이 아닙니다.');
       }
 
-      const response = await ultimateAuthApi.login({ email: requestBody.email, password: requestBody.password });
+      const response = await ultimateApi.signIn({ email: requestBody.email, password: requestBody.password });
 
-      if (response.error?.errorMessage) {
-        return SnackbarEvent.warning(response.error.errorMessage);
+      if (response.error) {
+        return SnackEvent.warning(response.error);
       }
 
-      if (response.error?.exceptionMessage) {
-        return SnackbarEvent.warning(response.error.exceptionMessage);
+      if (response.exception) {
+        return SnackEvent.warning(response.exception);
       }
 
-      setTokens(response.data.accessToken, response.data.refreshToken);
+      cookieService.setJwt(response.data.accessToken, response.data.refreshToken);
 
       window.location.replace(PagePath.Home);
     },

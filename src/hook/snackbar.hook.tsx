@@ -1,7 +1,7 @@
 import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 
-import { SnackbarEvent } from '@/persistence/event';
+import { SnackEvent } from '@/persistence/event';
 import { SnackbarProps } from '@/persistence/types';
 import { snackStore } from '@/store';
 
@@ -37,15 +37,15 @@ export class SnackbarHook {
 
   public useListener() {
     const useEnqueue = this.useEnqueue();
-    const snackbarEventHandler = (e: Event) => {
-      useEnqueue((e as SnackbarEvent).detail);
+    const SnackEventHandler = (e: Event) => {
+      useEnqueue((e as SnackEvent).detail);
     };
 
     useEffect(() => {
-      window.addEventListener(SnackbarEvent.name, snackbarEventHandler);
+      window.addEventListener(SnackEvent.name, SnackEventHandler);
 
       return () => {
-        window.removeEventListener(SnackbarEvent.name, snackbarEventHandler);
+        window.removeEventListener(SnackEvent.name, SnackEventHandler);
       };
     }, []);
   }

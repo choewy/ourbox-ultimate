@@ -1,5 +1,7 @@
-import { Navigate } from 'react-router-dom';
+import { authHook } from '@/hook';
 
 export default function LogoutPage() {
-  return <Navigate to={'/'} />;
+  authHook.useLogout();
+
+  return <></>;
 }
