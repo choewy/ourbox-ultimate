@@ -2,9 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { AuthGuard } from './guard';
 import Layout from './layout/layout';
-import HomePage from './page/home';
-import LoginPage from './page/login';
-import LogoutPage from './page/logout';
+import HomePage from './page/home.page';
+import LoginPage from './page/login.page';
+import LogoutPage from './page/logout.page';
+import UserPage from './page/user.page';
 import { PagePath } from './persistence/enums';
 
 export const ROUTER = createBrowserRouter([
@@ -28,7 +29,7 @@ export const ROUTER = createBrowserRouter([
           },
           {
             path: PagePath.Users,
-            element: <div>USERS</div>,
+            element: <UserPage />,
           },
           {
             path: PagePath.Fulfillments,

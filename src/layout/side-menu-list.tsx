@@ -23,14 +23,11 @@ export const SideMenuList = (props: SideMenuListProps) => {
   const collapsed = appStoreValue.menuListKey === menuListKey;
 
   const onClickVisible = () => {
+    setAppStore((prev) => ({ ...prev, menuListKey: open && collapsed ? '' : menuListKey }));
+
     if (!open) {
       setOpen(true);
     }
-
-    setAppStore((prev) => ({
-      ...prev,
-      menuListKey: collapsed ? '' : menuListKey,
-    }));
   };
 
   if (menuProps.menuItems.length === 0) {

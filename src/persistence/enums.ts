@@ -77,3 +77,10 @@ export enum UserType {
   FulfillmentAdmin = 'fulfillment-admin',
   FulfillmentUser = 'fulfillment-user',
 }
+
+export enum UserTabType {
+  All = '',
+  Admin = 'admin',
+  Partner = 'partner',
+  Fulfillment = 'fulfillment',
+}

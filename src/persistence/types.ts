@@ -25,7 +25,7 @@ export type SideMenuItemProps = {
   options?: NavigateOptions;
 };
 
-export type ListType<T> = {
+export type ListResponseType<T> = {
   count: number;
   skip: number;
   take: number;

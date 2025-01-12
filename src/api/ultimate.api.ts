@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 import { AxiosApi } from '@/persistence/abstracts';
 import { ApiErrorCode, RequestHeader } from '@/persistence/enums';
-import { AuthResponseData, ListType, LoginApiRequestBody, LoginApiResponseData, LoginOtherApiRequestBody, User } from '@/persistence/types';
+import { AuthResponseData, ListResponseType, LoginApiRequestBody, LoginApiResponseData, LoginOtherApiRequestBody, User } from '@/persistence/types';
 import { configService, cookieService } from '@/service';
 
 const instance = axios.create({ baseURL: configService.getUltimateApiUrl() });
@@ -101,7 +101,7 @@ export class UltimateApi extends AxiosApi<string, string> {
 
   async getUsers() {
     // TODO pagination
-    return this.get<ListType<User>>('/users');
+    return this.get<ListResponseType<User>>('/users');
   }
 }
 

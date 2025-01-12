@@ -28,7 +28,9 @@ export const AuthGuard = () => {
         }
 
         if (![String(PagePath.Login)].includes(pathname)) {
-          SnackEvent.warning('로그인이 필요한 페이지입니다.');
+          if (pathname !== String(PagePath.Home)) {
+            SnackEvent.warning('로그인이 필요한 페이지입니다.');
+          }
 
           return navigate(PagePath.Login, { replace: true });
         }
