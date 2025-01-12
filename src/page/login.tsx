@@ -1,11 +1,7 @@
 import { Box, Button, FormControl, TextField } from '@mui/material';
-import { isEmail, isEmpty } from 'class-validator';
 import { ChangeEvent, FormEvent, MouseEvent, useCallback, useState } from 'react';
 
-import { ultimateApi } from '@/api';
-import { PagePath } from '@/persistence/enums';
-import { SnackEvent } from '@/persistence/event';
-import { cookieService } from '@/service';
+import { authService } from '@/service';
 
 export default function LoginPage() {
   const [requestBody, setRequestBody] = useState({
@@ -27,34 +23,7 @@ export default function LoginPage() {
     async (e: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      const email = requestBody.email;
-      const password = requestBody.password;
-
-      if (isEmpty(email)) {
-        return SnackEvent.warning('이메일을 입력하세요.');
-      }
-
-      if (isEmpty(password)) {
-        return SnackEvent.warning('비밀번호를 입력하세요.');
-      }
-
-      if (!isEmail(email)) {
-        return SnackEvent.warning('이메일 형식이 아닙니다.');
-      }
-
-      const response = await ultimateApi.signIn({ email: requestBody.email, password: requestBody.password });
-
-      if (response.error) {
-        return SnackEvent.warning(response.error);
-      }
-
-      if (response.exception) {
-        return SnackEvent.warning(response.exception);
-      }
-
-      cookieService.setJwt(response.data.accessToken, response.data.refreshToken);
-
-      window.location.replace(PagePath.Home);
+      await authService.login({ email: requestBody.email, password: requestBody.password });
     },
     [requestBody],
   );
