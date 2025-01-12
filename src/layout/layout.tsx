@@ -127,10 +127,7 @@ export default function Layout() {
             key={['menuProps', menuProps.title, i].join('_')}
             open={open}
             setOpen={setOpen}
-            menuProps={{
-              ...menuProps,
-              menuItems: menuProps.menuItems.filter((menuItem) => menuItem.userTypes.includes(authStoreValue.current?.type)),
-            }}
+            menuProps={menuProps}
             divider={i < sideMenuPropsListCount - 1}
           />
         ))}

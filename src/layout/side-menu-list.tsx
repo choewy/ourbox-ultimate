@@ -35,7 +35,7 @@ export const SideMenuList = (props: SideMenuListProps) => {
 
   return (
     <>
-      <ListItem disablePadding sx={{ display: 'block' }}>
+      <ListItem disablePadding sx={{ minHeight: 48 }}>
         <ListItemButton sx={{ minHeight: 48, px: 2.5, justifyContent: open ? 'initial' : 'center' }} onClick={onClickVisible}>
           <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', mr: open ? 3 : 'auto' }}>
             {open ? visible ? <ExpandLess /> : <ExpandMore /> : menuProps.Icon}
