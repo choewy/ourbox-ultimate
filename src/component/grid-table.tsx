@@ -113,6 +113,7 @@ export type GridTableProps<PK, D extends { id: PK }> = {
   dense?: boolean;
 };
 
+// TODO 컴포넌트 더 쪼개기(테스트하려고 막 짜놓아서 난잡스러움)
 export function GridTable<PK, D extends { id: PK }>({ skip, take, count, columns, rows, selectRows, orderBy, onSelectAll, dense }: GridTableProps<PK, D>) {
   const rowCount = rows.length;
   const selectCount = selectRows.length;
