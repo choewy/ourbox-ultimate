@@ -1,4 +1,4 @@
-import { RecoilStore } from '@/persistence/classes';
+import { RecoilStore } from '@/persistence/abstracts';
 import { SnackbarProps } from '@/persistence/types';
 
 export class SnackStore extends RecoilStore<SnackbarProps[]> {}

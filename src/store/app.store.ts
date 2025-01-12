@@ -1,4 +1,4 @@
-import { RecoilStore } from '@/persistence/classes';
+import { RecoilStore } from '@/persistence/abstracts';
 
 export type AppStoreType = {
   title: string;

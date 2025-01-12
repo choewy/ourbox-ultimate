@@ -15,3 +15,8 @@ export const getTokens = () => {
     refreshToken: cookies.get(CookieProperty.RefreshToken) ?? null,
   };
 };
+
+export const removeTokens = () => {
+  cookies.remove(CookieProperty.AccessToken);
+  cookies.remove(CookieProperty.RefreshToken);
+};

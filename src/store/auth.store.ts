@@ -1,4 +1,4 @@
-import { RecoilStore } from '@/persistence/classes';
+import { RecoilStore } from '@/persistence/abstracts';
 import { User } from '@/persistence/types';
 
 export type AuthStoreType = {
