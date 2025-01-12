@@ -9,7 +9,7 @@ import { Snackbar } from './layout/snackbar';
 import HomePage from './page/home';
 import LoginPage from './page/login';
 import LogoutPage from './page/logout';
-import { darkTheme } from './persistence/constants';
+import { DARK_THEME } from './persistence/constants';
 import { PagePath } from './persistence/enums';
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
   authHook.useAuth();
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={DARK_THEME}>
       <HelmetProvider />
       <CssBaseline />
       <Snackbar />

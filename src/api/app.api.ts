@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { AxiosApi } from '@/persistence/abstracts';
-import { configService } from '@/service/config.service';
+import { configService } from '@/service';
 
 const instance = axios.create({ baseURL: configService.getAppUrl() });
 

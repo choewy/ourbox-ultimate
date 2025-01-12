@@ -3,8 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { AxiosApi } from '@/persistence/abstracts';
 import { ApiErrorCode, RequestHeader } from '@/persistence/enums';
 import { AuthResponseData, LoginApiRequestBody, LoginApiResponseData, LoginOtherApiRequestBody } from '@/persistence/types';
-import { cookieService } from '@/service';
-import { configService } from '@/service/config.service';
+import { configService, cookieService } from '@/service';
 
 const instance = axios.create({ baseURL: configService.getUltimateApiUrl() });
 

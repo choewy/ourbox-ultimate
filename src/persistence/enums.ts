@@ -2,6 +2,11 @@ export enum PagePath {
   Home = '/',
   Login = '/login',
   Logout = '/logout',
+  Users = '/users',
+  Fulfillments = '/fulfillments',
+  FulfillmentCenters = '/fulfillment-centers',
+  Partners = '/partners',
+  PartnerChannels = '/partner-channels',
   All = '*',
 }
 

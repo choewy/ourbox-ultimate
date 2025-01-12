@@ -1,10 +1,13 @@
-import { ChevronLeft, ChevronRight, Email, Inbox, Menu } from '@mui/icons-material';
+import { ChevronLeft, ChevronRight, Menu } from '@mui/icons-material';
 import { AppBar as MuiAppBar, AppBarProps as MuiAppBarProps, Drawer as MuiDrawer, Box, IconButton, Divider, Toolbar, Typography } from '@mui/material';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { SideMenuList } from './side-menu-list';
+
+import { menuService, userService } from '@/service';
+import { authStore } from '@/store';
 
 const drawerWidth = 240;
 
@@ -91,6 +94,9 @@ export default function Layout() {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
+  const authStoreValue = authStore.useValue();
+  const sideMenuPropsList = menuService.getSideMenuPropsList(authStoreValue.current);
+  const sideMenuPropsListCount = sideMenuPropsList.length;
 
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
@@ -105,7 +111,7 @@ export default function Layout() {
 
           {/* TODO 타이틀 분리 */}
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Mini variant drawer {userService.getProfileText(authStoreValue.current)}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -116,27 +122,18 @@ export default function Layout() {
         </DrawerHeader>
         <Divider />
 
-        {/* TODO 역할에 따른 메뉴 권한 부여 */}
-        <SideMenuList
-          open={open}
-          setOpen={setOpen}
-          menuProps={{
-            title: '1',
-            Icon: <Email />,
-            menuItems: [{ text: 'Hello', Icon: <Inbox />, to: '/temp' }],
-          }}
-          divider
-        />
-
-        <SideMenuList
-          open={open}
-          setOpen={setOpen}
-          menuProps={{
-            title: '2',
-            Icon: <Inbox />,
-            menuItems: [{ text: 'Hello', Icon: <Inbox />, to: '/' }],
-          }}
-        />
+        {sideMenuPropsList.map((menuProps, i) => (
+          <SideMenuList
+            key={['menuProps', menuProps.title, i].join('_')}
+            open={open}
+            setOpen={setOpen}
+            menuProps={{
+              ...menuProps,
+              menuItems: menuProps.menuItems.filter((menuItem) => menuItem.userTypes.includes(authStoreValue.current?.type)),
+            }}
+            divider={i < sideMenuPropsListCount - 1}
+          />
+        ))}
       </Drawer>
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

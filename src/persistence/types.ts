@@ -13,12 +13,14 @@ export type SnackbarProps = {
 export type SideMenuProps = {
   title: string;
   Icon: JSX.Element;
+  userTypes: UserType[];
   menuItems: SideMenuItemProps[];
 };
 
 export type SideMenuItemProps = {
   text: string;
   Icon: JSX.Element;
+  userTypes: UserType[];
   to: string;
   options?: NavigateOptions;
 };
