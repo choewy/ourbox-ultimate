@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { useAppVersion } from './hook/app';
+import Layout from './layout/layout';
 import { Snackbar } from './layout/snackbar';
 import HomePage from './page/home';
 import LoginPage from './page/login';
@@ -29,8 +30,13 @@ export default function App() {
             element: <LogoutPage />,
           },
           {
-            path: PagePath.All,
-            element: <HomePage />,
+            element: <Layout />,
+            children: [
+              {
+                path: PagePath.All,
+                element: <HomePage />,
+              },
+            ],
           },
         ])}
       />

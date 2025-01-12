@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { VariantType } from 'notistack';
+import { NavigateOptions } from 'react-router-dom';
 
 import { LoginOtherType, UserType } from './enums';
 
@@ -7,6 +8,19 @@ export type SnackbarProps = {
   id?: string;
   variant: VariantType;
   message: string;
+};
+
+export type SideMenuProps = {
+  title: string;
+  Icon: JSX.Element;
+  menuItems: SideMenuItemProps[];
+};
+
+export type SideMenuItemProps = {
+  text: string;
+  Icon: JSX.Element;
+  to: string;
+  options?: NavigateOptions;
 };
 
 export type AxiosValueFromReturnType<T, E = unknown> = {
