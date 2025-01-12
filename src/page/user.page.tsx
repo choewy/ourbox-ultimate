@@ -1,5 +1,4 @@
 import { Box, FormControl, Paper } from '@mui/material';
-import { DataGrid, useGridApiRef } from '@mui/x-data-grid';
 
 import { GridTable } from '@/component';
 import { tableHook } from '@/hook/table.hook';
@@ -7,7 +6,6 @@ import { tableHook } from '@/hook/table.hook';
 export default function UserPage() {
   const columns = tableHook.useUserGridColumns();
   const response = tableHook.useUserGridRows();
-  const gridRef = useGridApiRef();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
