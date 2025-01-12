@@ -1,17 +1,16 @@
 import { useCallback, useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
 
 import { appApi } from '@/api/app/version';
-import { appStore } from '@/store/app';
+import { appStore } from '@/store';
 
 export class AppHook {
   public useVersion() {
-    const setState = useSetRecoilState(appStore);
+    const setAppStore = appStore.useSetState();
     const useGetVersion = useCallback(async () => {
       const response = await appApi.version();
       const version = response.data?.version ?? '';
 
-      setState((prev) => ({ ...prev, version }));
+      setAppStore((prev) => ({ ...prev, version }));
     }, []);
 
     useEffect(() => {

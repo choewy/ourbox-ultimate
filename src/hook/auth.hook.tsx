@@ -1,27 +1,26 @@
 import { useCallback, useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
 
 import { ultimateAuthApi } from '@/api/ultimate/auth';
 import { getTokens, removeTokens } from '@/persistence/cookie';
-import { authStore } from '@/store/auth';
+import { authStore } from '@/store';
 
 class AuthHook {
   public useAuth() {
     const tokens = getTokens();
-    const setState = useSetRecoilState(authStore);
+    const setAuthStore = authStore.useSetState();
 
     const getAuth = useCallback(async () => {
       if (!tokens.accessToken || !tokens.refreshToken) {
-        return setState({ ok: false, current: null, origin: null });
+        return setAuthStore({ ok: false, current: null, origin: null });
       }
 
       const response = await ultimateAuthApi.auth();
 
       if (!response.ok) {
-        return setState({ ok: false, current: null, origin: null });
+        return setAuthStore({ ok: false, current: null, origin: null });
       }
 
-      setState({ ok: true, current: response.data?.user, origin: response.data?.origin });
+      setAuthStore({ ok: true, current: response.data?.user, origin: response.data?.origin });
     }, []);
 
     useEffect(() => {
@@ -29,13 +28,13 @@ class AuthHook {
     }, []);
   }
 
-  public useReset() {
+  public useLogout() {
     removeTokens();
 
-    const setState = useSetRecoilState(authStore);
+    const setAuthStore = authStore.useSetState();
 
     useEffect(() => {
-      setState({ ok: false, current: null, origin: null });
+      setAuthStore({ ok: false, current: null, origin: null });
     }, []);
   }
 }

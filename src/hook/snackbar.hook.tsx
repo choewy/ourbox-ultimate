@@ -1,37 +1,36 @@
 import { enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { SnackbarEvent } from '@/persistence/event';
 import { SnackbarProps } from '@/persistence/types';
-import { snackbarStore } from '@/store/snackbar';
+import { snackStore } from '@/store';
 
 export class SnackbarHook {
   private useEnqueue() {
-    const setState = useSetRecoilState(snackbarStore);
+    const setSnackStore = snackStore.useSetState();
 
     return useCallback(
       (props: SnackbarProps) => {
-        setState((prev) => [...prev, props]);
+        setSnackStore((prev) => [...prev, props]);
       },
-      [setState],
+      [setSnackStore],
     );
   }
 
   private useDequeue() {
-    const [state, setState] = useRecoilState(snackbarStore);
+    const [snackStoreValue, setSnackStore] = snackStore.useState();
     const [target, setTarget] = useState<SnackbarProps | null>(null);
 
     useEffect(() => {
-      if (state.length === 0) {
+      if (snackStoreValue.length === 0) {
         return;
       }
 
-      const props = state[0];
+      const props = snackStoreValue[0];
 
       setTarget(props);
-      setState((prev) => prev.filter((prev) => prev.id !== props.id));
-    }, [state, setState, setTarget]);
+      setSnackStore((prev) => prev.filter((prev) => prev.id !== props.id));
+    }, [snackStoreValue, setSnackStore, setTarget]);
 
     return target;
   }
