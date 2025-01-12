@@ -122,15 +122,20 @@ export default function Layout() {
         </DrawerHeader>
         <Divider />
 
-        {sideMenuPropsList.map((menuProps, i) => (
-          <SideMenuList
-            key={['menuProps', menuProps.title, i].join('_')}
-            open={open}
-            setOpen={setOpen}
-            menuProps={menuProps}
-            divider={i < sideMenuPropsListCount - 1}
-          />
-        ))}
+        {sideMenuPropsList.map((menuProps, i) => {
+          const menuListKey = ['menuProps', menuProps.title, i].join('_');
+
+          return (
+            <SideMenuList
+              key={menuListKey}
+              open={open}
+              setOpen={setOpen}
+              menuListKey={menuListKey}
+              menuProps={menuProps}
+              divider={i < sideMenuPropsListCount - 1}
+            />
+          );
+        })}
       </Drawer>
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
