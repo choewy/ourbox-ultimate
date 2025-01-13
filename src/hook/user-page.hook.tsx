@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { ultimateApi } from '@/api';
 import { GridTableColumnProps, GridTableRowProps } from '@/component';
 import { SnackEvent } from '@/persistence/event';
 import { User } from '@/persistence/types';
 import { dateService, userService } from '@/service';
+import { userPageStore } from '@/store';
 
-export class TableHook {
-  public useUserGridColumns(): GridTableColumnProps<string, User>[] {
+export class UserPageHook {
+  public useGridColumns(): GridTableColumnProps<string, User>[] {
     return [
       {
         key: 'id',
@@ -26,6 +27,22 @@ export class TableHook {
         label: '구분',
       },
       {
+        key: 'partner',
+        label: '고객사',
+      },
+      {
+        key: 'partnerChannel',
+        label: '판매채널',
+      },
+      {
+        key: 'fulfillment',
+        label: '풀필먼트',
+      },
+      {
+        key: 'fulfillmentCenter',
+        label: '풀필먼트센터',
+      },
+      {
         key: 'createdAt',
         label: '등록일시',
       },
@@ -36,17 +53,11 @@ export class TableHook {
     ];
   }
 
-  public useUserGridRows() {
-    const [state, setState] = useState<{
-      count: number;
-      rows: GridTableRowProps<string, User>[];
-    }>({
-      count: 0,
-      rows: [],
-    });
+  public useGridRows() {
+    const [state, setState] = userPageStore.useState();
 
     const getUserList = async () => {
-      const response = await ultimateApi.getUsers();
+      const response = await ultimateApi.getUserList(state.param);
 
       if (!response.ok) {
         if (response.error) {
@@ -69,12 +80,16 @@ export class TableHook {
             email: { value: row.email },
             name: { value: row.name },
             type: { value: userService.getUserTypeTett(row.type) },
+            partner: { value: row.partner?.name ?? '' },
+            partnerChannel: { value: row.partnerChannel?.name ?? '' },
+            fulfillment: { value: row.fulfillment?.name ?? '' },
+            fulfillmentCenter: { value: row.fulfillmentCenter?.name ?? '' },
             createdAt: { value: dateService.fromISOToDateTimeText(row.createdAt) },
             updatedAt: { value: dateService.fromISOToDateTimeText(row.updatedAt) },
           }) as GridTableRowProps<string, User>,
       );
 
-      setState({ count, rows });
+      setState((prev) => ({ ...prev, count, rows }));
     };
 
     useEffect(() => {
@@ -85,4 +100,4 @@ export class TableHook {
   }
 }
 
-export const tableHook = new TableHook();
+export const userPageHook = new UserPageHook();

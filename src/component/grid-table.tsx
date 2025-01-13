@@ -165,8 +165,8 @@ export function GridTable<PK, D extends { id: PK }>({ skip, take, count, columns
           count={count}
           rowsPerPage={take}
           page={skip}
-          onPageChange={() => console.log('TODO')}
-          onRowsPerPageChange={() => console.log('TODO')}
+          onPageChange={(e, page) => console.log(`TODO :: onPageChange :: ${page}`)}
+          onRowsPerPageChange={(e) => console.log(`TODO :: onRowsPerPageChange :: ${e.target.value}`)}
         />
       </Paper>
     </Box>

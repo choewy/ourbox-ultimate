@@ -84,3 +84,8 @@ export enum UserTabType {
   Partner = 'partner',
   Fulfillment = 'fulfillment',
 }
+
+export enum OrderBy {
+  Asc = 'asc',
+  Desc = 'desc',
+}

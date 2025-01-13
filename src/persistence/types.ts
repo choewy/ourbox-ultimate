@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { VariantType } from 'notistack';
 import { NavigateOptions } from 'react-router-dom';
 
-import { LoginOtherType, UserType } from './enums';
+import { LoginOtherType, OrderBy, UserType } from './enums';
 
 export type SnackbarProps = {
   id?: string;
@@ -23,6 +23,16 @@ export type SideMenuItemProps = {
   userTypes: UserType[];
   to: string;
   options?: NavigateOptions;
+};
+
+export type ListRequestParam<T> = {
+  skip: number;
+  take: number;
+} & T;
+
+export type DateRangeParam = {
+  startDate?: string;
+  endDate?: string;
 };
 
 export type ListResponseType<T> = {
@@ -54,6 +64,41 @@ export type LoginApiResponseData = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type UserListKeywordParam = Partial<{
+  id: string;
+  type: string;
+  name: string;
+  email: string;
+  partner: string;
+  partnerChannel: string;
+  fulfillment: string;
+  fulfillmentCenter: string;
+}>;
+
+export type UserListDateRangeParam = Partial<{
+  createdAt: DateRangeParam;
+  updatedAt: DateRangeParam;
+}>;
+
+export type UserListOrderByParam = Partial<{
+  id: OrderBy;
+  type: OrderBy;
+  name: OrderBy;
+  email: OrderBy;
+  createdAt: OrderBy;
+  updatedAt: OrderBy;
+  partner: OrderBy;
+  partnerChannel: OrderBy;
+  fulfillment: OrderBy;
+  fulfillmentCenter: OrderBy;
+}>;
+
+export type UserListRequestParam = ListRequestParam<{
+  keyword: UserListKeywordParam;
+  dateRange: UserListDateRangeParam;
+  orderBy: UserListOrderByParam;
+}>;
 
 export type DateISOString = string;
 
