@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { VariantType } from 'notistack';
 import { NavigateOptions } from 'react-router-dom';
 
-import { LoginOtherType, OrderBy, UserType } from './enums';
+import { LoginOtherType, OrderBy, UserStatus, UserType } from './enums';
 
 export type SnackbarProps = {
   id?: string;
@@ -107,6 +107,7 @@ export type User = {
   type: UserType;
   name: string;
   email: string;
+  status: UserStatus;
   createdAt: DateISOString;
   updatedAt: DateISOString;
   partner?: Partner;

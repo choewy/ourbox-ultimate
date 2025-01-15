@@ -1,27 +1,29 @@
-import { Box, FormControl, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { GridTable } from '@/component';
 import { userPageHook } from '@/hook';
 
 export default function UserPage() {
+  const onSelect = userPageHook.useGridOnSelectHandler();
+  const onChangePage = userPageHook.useGridOnChangePage();
+  const onChangeRowsPerPage = userPageHook.useGridOnChangeRowsPerPage();
+
   const columns = userPageHook.useGridColumns();
-  const { count, rows, param, selectRows } = userPageHook.useGridRows();
+  const { count, rows, param, selectRows } = userPageHook.useGridData();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Paper>
-        <FormControl></FormControl>
-      </Paper>
-
       <GridTable
-        skip={0}
-        take={20}
+        skip={param.skip}
+        take={param.take}
         columns={columns}
         count={count}
         rows={rows}
         orderBy={param.orderBy}
         selectRows={selectRows}
-        onSelectAll={() => console.log('TODO')}
+        onSelect={onSelect}
+        onChangePage={onChangePage}
+        onChangeRowsPerPage={onChangeRowsPerPage}
       />
     </Box>
   );
