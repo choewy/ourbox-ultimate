@@ -43,8 +43,8 @@ export type GridTableProps<PK, D extends { id: PK }> = {
   columns: GridTableColumnProps<PK, D>[];
   rows: GridTableRowProps<PK, D>[];
   orderBy: Partial<Record<keyof D, 'asc' | 'desc'>>;
+  marginalHeight?: number;
   onSelect: GridTableOnSelectHandler<PK>;
   onChangePage: GridTableOnChangePageHandler;
   onChangeRowsPerPage: GridTableOnChangeRowsPerPageHandler;
-  dense?: boolean;
 };

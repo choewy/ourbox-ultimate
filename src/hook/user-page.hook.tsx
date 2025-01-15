@@ -23,7 +23,7 @@ export class UserPageHook {
       { key: 'partner', label: '고객사' },
       { key: 'partnerChannel', label: '판매채널' },
       { key: 'fulfillment', label: '풀필먼트' },
-      { key: 'fulfillmentCenter', label: '풀필먼트센터' },
+      { key: 'fulfillmentCenter', label: '센터' },
       { key: 'status', label: '계정상태' },
       { key: 'createdAt', label: '등록일시' },
       { key: 'updatedAt', label: '수정일시' },
