@@ -78,11 +78,9 @@ export enum UserType {
   FulfillmentUser = 'fulfillment-user',
 }
 
-export enum UserTabType {
-  All = '',
-  Admin = 'admin',
-  Partner = 'partner',
-  Fulfillment = 'fulfillment',
+export enum UserStatus {
+  Activated = 'activated',
+  Disabled = 'disabled',
 }
 
 export enum OrderBy {

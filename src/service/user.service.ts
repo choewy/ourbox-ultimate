@@ -1,4 +1,4 @@
-import { UserType } from '@/persistence/enums';
+import { UserStatus, UserType } from '@/persistence/enums';
 import { User } from '@/persistence/types';
 
 export class UserService {
@@ -22,11 +22,14 @@ export class UserService {
 
       case UserType.PartnerUser:
         return `${user.name}(${user.partner?.name} ${user.partnerChannel?.name} 판매채널 사용자)`;
+
+      default:
+        return `${user.name}(${user.status})`;
     }
   }
 
-  public getUserTypeTett(userType: UserType) {
-    switch (userType) {
+  public getUserTypeTett(type: UserType) {
+    switch (type) {
       case UserType.Admin:
         return '관리자';
 
@@ -41,6 +44,22 @@ export class UserService {
 
       case UserType.PartnerUser:
         return '고객사 사용자';
+
+      default:
+        return type;
+    }
+  }
+
+  public getUserStatusText(status: UserStatus) {
+    switch (status) {
+      case UserStatus.Activated:
+        return '활성';
+
+      case UserStatus.Disabled:
+        return '비활성';
+
+      default:
+        return status;
     }
   }
 }
