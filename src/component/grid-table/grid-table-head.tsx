@@ -28,6 +28,7 @@ export function GridTableHead<PK, D extends { id: PK }>({ rowCount, selectCount,
               align={column.align}
               padding={column.disablePadding ? 'none' : 'normal'}
               sortDirection={isActiveSort ? order : false}
+              sx={{ minWidth: column.minWidth }}
             >
               <TableSortLabel active={isActiveSort} direction={order} onClick={column.onClickSort}>
                 {column.label}

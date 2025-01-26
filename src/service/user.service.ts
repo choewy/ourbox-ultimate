@@ -1,4 +1,4 @@
-import { UserStatus, UserType } from '@/persistence/enums';
+import { UserSearchKeywordField, UserStatus, UserType } from '@/persistence/enums';
 import { User } from '@/persistence/types';
 
 export class UserService {
@@ -31,7 +31,7 @@ export class UserService {
   public getUserTypeTett(type: UserType) {
     switch (type) {
       case UserType.Admin:
-        return '관리자';
+        return '통합관리자';
 
       case UserType.FulfillmentAdmin:
         return '풀필먼트 관리자';
@@ -63,29 +63,36 @@ export class UserService {
     }
   }
 
-  public getUserTypeMaps() {
-    return [
+  public getSearchTypeOptions(user?: User) {
+    const options = [
       {
-        label: '관리자',
+        label: '통합관리자',
         value: UserType.Admin,
+        targets: [UserType.Admin],
       },
       {
         label: '고객사 관리자',
         value: UserType.PartnerAdmin,
+        targets: [UserType.Admin, UserType.PartnerAdmin],
       },
       {
         label: '고객사 사용자',
         value: UserType.PartnerUser,
+        targets: [UserType.Admin, UserType.PartnerAdmin, UserType.PartnerUser],
       },
       {
         label: '풀필먼트 관리자',
         value: UserType.FulfillmentAdmin,
+        targets: [UserType.Admin, UserType.FulfillmentAdmin],
       },
       {
         label: '풀필먼트 사용자',
         value: UserType.FulfillmentUser,
+        targets: [UserType.Admin, UserType.FulfillmentAdmin, UserType.FulfillmentUser],
       },
     ];
+
+    return user ? options.filter((option) => option.targets.includes(user?.type)) : options;
   }
 
   public getUserStatusMaps() {
@@ -101,37 +108,71 @@ export class UserService {
     ];
   }
 
-  public getUserKeywordMaps() {
-    return [
+  public getSearchKeywordFieldOptions(user?: User) {
+    const options = [
+      {
+        label: '선택',
+        value: UserSearchKeywordField.None,
+        targets: [UserType.Admin, UserType.PartnerAdmin, UserType.PartnerUser, UserType.FulfillmentAdmin, UserType.FulfillmentUser],
+      },
       {
         label: '번호',
-        value: 'id',
+        value: UserSearchKeywordField.UserId,
+        targets: [UserType.Admin, UserType.PartnerAdmin, UserType.PartnerUser, UserType.FulfillmentAdmin, UserType.FulfillmentUser],
       },
       {
         label: '이름',
-        value: 'name',
+        value: UserSearchKeywordField.UserName,
+        targets: [UserType.Admin, UserType.PartnerAdmin, UserType.PartnerUser, UserType.FulfillmentAdmin, UserType.FulfillmentUser],
       },
       {
         label: '이메일',
-        value: 'email',
+        value: UserSearchKeywordField.UserEmail,
+        targets: [UserType.Admin, UserType.PartnerAdmin, UserType.PartnerUser, UserType.FulfillmentAdmin, UserType.FulfillmentUser],
+      },
+      {
+        label: '고객사번호',
+        value: UserSearchKeywordField.PartnerId,
+        targets: [UserType.Admin],
       },
       {
         label: '고객사명',
-        value: 'partner',
+        value: UserSearchKeywordField.PartnerName,
+        targets: [UserType.Admin],
+      },
+      {
+        label: '판매채널번호',
+        value: UserSearchKeywordField.PartnerChannelId,
+        targets: [UserType.Admin, UserType.PartnerAdmin],
       },
       {
         label: '판매채널명',
-        value: 'partnerChannel',
+        value: UserSearchKeywordField.PartnerChannelName,
+        targets: [UserType.Admin, UserType.PartnerAdmin],
+      },
+      {
+        label: '풀필먼트번호',
+        value: UserSearchKeywordField.FulfillmentId,
+        targets: [UserType.Admin],
       },
       {
         label: '풀필먼트명',
-        value: 'fulfillment',
+        value: UserSearchKeywordField.FulfillmentName,
+        targets: [UserType.Admin],
+      },
+      {
+        label: '센터번호',
+        value: UserSearchKeywordField.FulfillmentCenterId,
+        targets: [UserType.Admin, UserType.FulfillmentAdmin],
       },
       {
         label: '센터명',
-        value: 'fulfillmentCetner',
+        value: UserSearchKeywordField.FulfillmentCenterName,
+        targets: [UserType.Admin, UserType.FulfillmentAdmin],
       },
     ];
+
+    return user ? options.filter((option) => option.targets.includes(user?.type)) : options;
   }
 }
 

@@ -8,6 +8,7 @@ export type GridTableOnClickSort = <Element>(e: MouseEvent<Element>) => void;
 export type GridTableColumnProps<PK, D extends { id: PK }> = {
   key: keyof D | string;
   label: string;
+  minWidth?: number | string;
   align?: 'left' | 'center' | 'right' | 'justify' | 'inherit';
   disablePadding?: boolean;
   onClickSort?: GridTableOnClickSort;

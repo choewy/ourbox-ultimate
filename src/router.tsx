@@ -5,7 +5,7 @@ import Layout from './layout/layout';
 import HomePage from './page/home.page';
 import LoginPage from './page/login.page';
 import LogoutPage from './page/logout.page';
-import UserPage from './page/user.page';
+import UserPage from './page/user/user.page';
 import { PagePath } from './persistence/enums';
 
 export const ROUTER = createBrowserRouter([

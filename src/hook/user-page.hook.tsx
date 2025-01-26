@@ -17,17 +17,21 @@ import { userPageStore, UserPageStoreType } from '@/store';
 export class UserPageHook {
   public useGridColumns(): GridTableColumnProps<string, User>[] {
     return [
-      { key: 'id', label: '번호' },
-      { key: 'email', label: '이메일' },
-      { key: 'name', label: '이름' },
-      { key: 'type', label: '구분' },
-      { key: 'partner', label: '고객사' },
-      { key: 'partnerChannel', label: '판매채널' },
-      { key: 'fulfillment', label: '풀필먼트' },
-      { key: 'fulfillmentCenter', label: '센터' },
-      { key: 'status', label: '계정상태' },
-      { key: 'createdAt', label: '등록일시' },
-      { key: 'updatedAt', label: '수정일시' },
+      { key: 'id', label: '번호', minWidth: 100 },
+      { key: 'email', label: '이메일', minWidth: 100 },
+      { key: 'name', label: '이름', minWidth: 100 },
+      { key: 'type', label: '구분', minWidth: 100 },
+      { key: 'partnerId', label: '고객사번호', minWidth: 130 },
+      { key: 'partnerName', label: '고객사명', minWidth: 120 },
+      { key: 'partnerChannelId', label: '판매채널번호', minWidth: 140 },
+      { key: 'partnerChannelName', label: '판매채널명', minWidth: 120 },
+      { key: 'fulfillmentId', label: '풀필먼트번호', minWidth: 140 },
+      { key: 'fulfillmentName', label: '풀필먼트명', minWidth: 120 },
+      { key: 'fulfillmentCenterId', label: '센터번호', minWidth: 120 },
+      { key: 'fulfillmentCenterName', label: '센터명', minWidth: 120 },
+      { key: 'status', label: '계정상태', minWidth: 120 },
+      { key: 'createdAt', label: '등록일시', minWidth: 120 },
+      { key: 'updatedAt', label: '수정일시', minWidth: 120 },
     ];
   }
 
@@ -50,17 +54,20 @@ export class UserPageHook {
       }
 
       const count = response.data.count;
-      const skip = response.data.skip;
       const rows = response.data.rows.map(
-        (row, i) =>
+        (row) =>
           ({
-            id: { origin: row.id, value: skip + i + 1 },
+            id: { origin: row.id, value: row.id },
             email: { value: row.email },
             name: { value: row.name },
             type: { value: userService.getUserTypeTett(row.type) },
-            partner: { value: row.partner?.name ?? '' },
-            partnerChannel: { value: row.partnerChannel?.name ?? '' },
-            fulfillment: { value: row.fulfillment?.name ?? '' },
+            partnerId: { value: row.partner?.id ?? '' },
+            partnerName: { value: row.partner?.name ?? '' },
+            partnerChannelId: { value: row.partnerChannel?.id ?? '' },
+            partnerChannelName: { value: row.partnerChannel?.name ?? '' },
+            fulfillmentId: { value: row.fulfillment?.id ?? '' },
+            fulfillmentName: { value: row.fulfillment?.name ?? '' },
+            fulfillmentCenterId: { value: row.fulfillmentCenter?.id ?? '' },
             fulfillmentCenter: { value: row.fulfillmentCenter?.name ?? '' },
             status: { value: userService.getUserStatusText(row.status) },
             createdAt: { value: dateService.fromISOToDateTimeText(row.createdAt) },
@@ -145,6 +152,7 @@ export class UserPageHook {
 
   public useOnModalController = (key: keyof Pick<UserPageStoreType, 'openCreateModal'>, openState: boolean) => {
     const setState = userPageStore.useSetState();
+
     return useCallback(() => {
       setState((prev) => ({ ...prev, [key]: openState }));
     }, []);

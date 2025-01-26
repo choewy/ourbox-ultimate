@@ -13,7 +13,13 @@ export function GridTable<PK, D extends { id: PK }>(props: GridTableProps<PK, D>
 
   return (
     <>
-      <TableContainer sx={{ width: '100%', height: `calc(100vh - ${180 + (marginalHeight ?? 0)}px)`, overflow: 'auto' }}>
+      <TableContainer
+        sx={{
+          width: 'calc(100vw - 120px)',
+          height: `calc(100vh - ${180 + (marginalHeight ?? 0)}px)`,
+          overflow: 'auto',
+        }}
+      >
         <Table stickyHeader sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
           <GridTableHead orderBy={orderBy} rowCount={rowCount} columns={columns} rows={rows} selectCount={selectCount} onSelect={onSelect} />
           <TableBody>

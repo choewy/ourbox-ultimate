@@ -4,6 +4,7 @@ import { AxiosApi } from '@/persistence/abstracts';
 import { ApiErrorCode, RequestHeader } from '@/persistence/enums';
 import {
   AuthResponseData,
+  ExcelFileDownloadResponse,
   ListResponseType,
   LoginApiRequestBody,
   LoginApiResponseData,
@@ -50,6 +51,10 @@ export class UltimateApi extends AxiosApi<string, string> {
   }
 
   protected handleException(e: AxiosError) {
+    if (e.status === 404) {
+      return `존재하지 않는 요청 URL 입니다(${e.config?.url}).`;
+    }
+
     if (e.response?.data == null) {
       return null;
     }
@@ -109,6 +114,10 @@ export class UltimateApi extends AxiosApi<string, string> {
 
   async getUserList(body: UserListRequestParam) {
     return this.post<ListResponseType<User>>('/users/list', body);
+  }
+
+  async downloadUserListExcel(body: UserListRequestParam) {
+    return this.post<ExcelFileDownloadResponse>('/users/excel', body);
   }
 }
 

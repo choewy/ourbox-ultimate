@@ -4,6 +4,7 @@ import { User, UserListRequestParam } from '@/persistence/types';
 
 export type UserPageStoreType = {
   loading: boolean;
+  openCreateModal: boolean;
   count: number;
   selectRows: string[];
   rows: GridTableRowProps<string, User>[];
@@ -14,6 +15,7 @@ export class UserPageStore extends RecoilStore<UserPageStoreType> {}
 
 export const userPageStore = new UserPageStore('userPageStore', {
   loading: false,
+  openCreateModal: false,
   count: 0,
   rows: [],
   selectRows: [],
@@ -21,6 +23,7 @@ export const userPageStore = new UserPageStore('userPageStore', {
     skip: 0,
     take: 20,
     keyword: {},
+    filter: {},
     dateRange: {},
     orderBy: {},
   },
