@@ -10,6 +10,12 @@ export type SnackbarProps = {
   message: string;
 };
 
+export type DownloadProps = {
+  id?: string;
+  url: string;
+  filename: string;
+};
+
 export type SideMenuProps = {
   title: string;
   Icon: JSX.Element;
@@ -40,6 +46,11 @@ export type ListResponseType<T> = {
   skip: number;
   take: number;
   rows: T[];
+};
+
+export type ExcelFileDownloadResponse = {
+  filename: string;
+  url: string;
 };
 
 export type AxiosValueFromReturnType<T, E = unknown> = {

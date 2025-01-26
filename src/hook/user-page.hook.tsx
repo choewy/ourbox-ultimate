@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { MouseEventHandler, useCallback, useEffect } from 'react';
 
 import { ultimateApi } from '@/api';
 import {
@@ -9,9 +9,10 @@ import {
   GridTableRowProps,
 } from '@/component';
 import { SnackEvent } from '@/persistence/event';
+import { DownloadEvent } from '@/persistence/event/download.event';
 import { User } from '@/persistence/types';
 import { dateService, userService } from '@/service';
-import { userPageStore } from '@/store';
+import { userPageStore, UserPageStoreType } from '@/store';
 
 export class UserPageHook {
   public useGridColumns(): GridTableColumnProps<string, User>[] {
@@ -42,7 +43,7 @@ export class UserPageHook {
         }
 
         if (response.exception) {
-          SnackEvent.warning(response.error);
+          SnackEvent.warning(response.exception);
         }
 
         return;
@@ -119,6 +120,35 @@ export class UserPageHook {
       [setState],
     );
   }
+
+  public useOnClickDownloadButton(): MouseEventHandler<HTMLButtonElement> {
+    const { param } = userPageStore.useValue();
+
+    return useCallback(async () => {
+      const response = await ultimateApi.downloadUserListExcel(param);
+
+      if (!response.ok) {
+        if (response.error) {
+          SnackEvent.error(response.error);
+        }
+
+        if (response.exception) {
+          SnackEvent.warning(response.exception);
+        }
+
+        return;
+      }
+
+      DownloadEvent.download(response.data.url, response.data.filename);
+    }, []);
+  }
+
+  public useOnModalController = (key: keyof Pick<UserPageStoreType, 'openCreateModal'>, openState: boolean) => {
+    const setState = userPageStore.useSetState();
+    return useCallback(() => {
+      setState((prev) => ({ ...prev, [key]: openState }));
+    }, []);
+  };
 }
 
 export const userPageHook = new UserPageHook();

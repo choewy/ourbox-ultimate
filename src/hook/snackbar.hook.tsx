@@ -37,15 +37,15 @@ export class SnackbarHook {
 
   public useListener() {
     const useEnqueue = this.useEnqueue();
-    const SnackEventHandler = (e: Event) => {
+    const xnackEventHandler = (e: Event) => {
       useEnqueue((e as SnackEvent).detail);
     };
 
     useEffect(() => {
-      window.addEventListener(SnackEvent.name, SnackEventHandler);
+      window.addEventListener(SnackEvent.name, xnackEventHandler);
 
       return () => {
-        window.removeEventListener(SnackEvent.name, SnackEventHandler);
+        window.removeEventListener(SnackEvent.name, xnackEventHandler);
       };
     }, []);
   }
